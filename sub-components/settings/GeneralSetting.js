@@ -1,17 +1,47 @@
 // import node module libraries
+import { useEffect, useState } from "react";
+
 import { Col, Row, Form, Card, Button, Image } from "react-bootstrap";
+import axios from "axios";
 
 // import widget as custom components
 import { FormSelect, DropFiles } from "widgets";
 
 const GeneralSetting = () => {
+  let ACCESS_TOKEN;
+  const [userData, setUserData] = useState({
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    address: "",
+    country: "",
+    state: "",
+    city: "",
+    zipCode: "",
+  });
   const countryOptions = [
     { value: "India", label: "India" },
     { value: "US", label: "US" },
     { value: "UK", label: "UK" },
     { value: "UAE", label: "UAE" },
   ];
+  const submitBasicInfo = async (e) => {
+    try {
+      const request = await axios.get(`${baseUrl}/user`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      });
+      return request.data;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
+  useEffect(() => {
+    ACCESS_TOKEN = JSON.parse(localStorage.getItem("ACCESS_TOKEN"));
+  }, []);
   return (
     <Row className="mb-8">
       <Col xl={3} lg={4} md={12} xs={12}>
@@ -83,7 +113,7 @@ const GeneralSetting = () => {
               <div className="mb-6">
                 <h4 className="mb-1">Basic information</h4>
               </div>
-              <Form>
+              <Form onSubmit={submitBasicInfo}>
                 {/* row */}
                 <Row className="mb-3">
                   <label
@@ -100,6 +130,9 @@ const GeneralSetting = () => {
                       placeholder="First name"
                       id="fullName"
                       required
+                      onChange={(e) =>
+                        setUserData({ ...userData, firstName: e.target.value })
+                      }
                     />
                   </div>
                   <div className="col-sm-4">
@@ -109,6 +142,9 @@ const GeneralSetting = () => {
                       placeholder="Last name"
                       id="lastName"
                       required
+                      onChange={(e) =>
+                        setUserData({ ...userData, lastName: e.target.value })
+                      }
                     />
                   </div>
                 </Row>
@@ -128,6 +164,9 @@ const GeneralSetting = () => {
                       placeholder="Email"
                       id="email"
                       required
+                      onChange={(e) =>
+                        setUserData({ ...userData, email: e.target.value })
+                      }
                     />
                   </div>
                 </Row>
@@ -141,6 +180,9 @@ const GeneralSetting = () => {
                       type="text"
                       placeholder="Enter Phone"
                       id="phone"
+                      onChange={(e) =>
+                        setUserData({ ...userData, phone: e.target.value })
+                      }
                     />
                   </Col>
                 </Row>
@@ -156,6 +198,9 @@ const GeneralSetting = () => {
                       placeholder="Select Country"
                       id="country"
                       options={countryOptions}
+                      onChange={(e) =>
+                        setUserData({ ...userData, country: e.value })
+                      }
                     />
                   </Col>
                 </Row>
@@ -171,6 +216,12 @@ const GeneralSetting = () => {
                       placeholder="Enter Address line 1"
                       id="addressLine"
                       required
+                      onChange={(e) =>
+                        setUserData({
+                          ...userData,
+                          addressLineOne: e.target.value,
+                        })
+                      }
                     />
                   </Col>
                 </Row>
@@ -186,6 +237,12 @@ const GeneralSetting = () => {
                       placeholder="Enter Address line 2"
                       id="addressLineTwo"
                       required
+                      onChange={(e) =>
+                        setUserData({
+                          ...userData,
+                          addressLineTwo: e.target.value,
+                        })
+                      }
                     />
                   </Col>
                 </Row>
@@ -203,6 +260,9 @@ const GeneralSetting = () => {
                       placeholder="Enter Zip code"
                       id="zipcode"
                       required
+                      onChange={(e) =>
+                        setUserData({ ...userData, zipCode: e.target.value })
+                      }
                     />
                   </Col>
 
