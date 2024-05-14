@@ -44,6 +44,8 @@ export const DashboardMenu = [
       { id: uuid(), link: "/pages/settings", name: "Settings" },
       { id: uuid(), link: "/pages/billing", name: "Sessions" },
       { id: uuid(), link: "/pages/registerUser", name: "Register user" },
+      { id: uuid(), link: "/pages/reciept", name: "Reciept" },
+      { id: uuid(), link: "/pages/login", name: "Login" },
     ],
   },
   // {

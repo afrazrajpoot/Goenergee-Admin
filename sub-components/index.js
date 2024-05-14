@@ -27,7 +27,9 @@ import GeneralSetting from "sub-components/settings/GeneralSetting";
 import Notifications from "sub-components/settings/Notifications";
 import Preferences from "sub-components/settings/Preferences";
 import RegisterUser from "pages/pages/registerUser";
-
+// import RecieptPage from "pages/pages/reciept";
+import RecieptPage from "pages/pages/reciept";
+import Login from "pages/pages/login";
 export {
   ActiveProjects,
   TasksPerformance,
@@ -46,4 +48,6 @@ export {
   Notifications,
   Preferences,
   RegisterUser,
+  RecieptPage,
+  Login,
 };
